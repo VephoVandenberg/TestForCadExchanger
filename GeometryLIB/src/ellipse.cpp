@@ -32,3 +32,8 @@ Circle::Circle(const Vec3& center, const double radius)
 {
 
 }
+
+bool Circle::operator<(const Circle& circle) const
+{
+	return m_xRadius < circle.m_xRadius;
+}
