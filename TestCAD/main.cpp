@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 	}
 
 	// 2. Print coordinates of points and derivatives of all curves in the container at t=PI/4.
-	for (auto& curve : curves)
+	for (const auto& curve : curves)
 	{
 		auto p = curve->getPoint(M_PI / 4);
 		auto d = curve->getDerivative(M_PI / 4);
@@ -67,6 +67,8 @@ int main(int argc, char** argv)
 		std::cout << "Point " << p << '\n';
 		std::cout << "------------" << '\n';
 	}
+
+	std::cout << '\n';
 
 	// 3. Populate a second container that would contain only circles from the first container,
 	// make sure the second container shares circles of the first one, via pointers.
@@ -103,6 +105,7 @@ int main(int argc, char** argv)
 		total += circle->getRadius();
 	}
 	std::cout << "Total = " << total << '\n';
+
 	return 0;
 }
 
@@ -122,4 +125,6 @@ std::string getType(const std::shared_ptr<Geometry::Curve>& curve)
 	{
 		return "Helix";
 	}
+
+	return "BaseCurve";
 }
