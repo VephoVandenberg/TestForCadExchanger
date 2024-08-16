@@ -17,7 +17,7 @@ constexpr double g_stepMax = 10.0;
 constexpr Geometry::Vec3 g_minPos = { -1000.0, -1000.0, 0.0 };
 constexpr Geometry::Vec3 g_maxPos = { 1000.0, 1000.0, 0.0 };
 
-std::string getType(Geometry::Curve* curve);
+std::string getType(const std::shared_ptr<Geometry::Curve>& curve);
 
 int main(int argc, char** argv)
 {
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 		auto d = curve->getDerivative(M_PI / 4);
 
 		std::cout << "------------" << '\n';
-		std::cout << getType(curve.get()) << '\n';
+		std::cout << getType(curve) << '\n';
 		std::cout << "Derivative " << d << '\n';
 		std::cout << "Point " << p << '\n';
 		std::cout << "------------" << '\n';
@@ -71,7 +71,7 @@ int main(int argc, char** argv)
 	// 3. Populate a second container that would contain only circles from the first container,
 	// make sure the second container shares circles of the first one, via pointers.
 	std::vector<std::shared_ptr<Geometry::Circle>> circles;
-	for (auto& curve : curves)
+	for (const auto& curve : curves)
 	{
 		auto circle = std::dynamic_pointer_cast<Geometry::Circle>(curve);
 		if (circle)
@@ -88,7 +88,7 @@ int main(int argc, char** argv)
 		[](const auto& c1, const auto& c2) {
 			return *c1 < *c2;
 		});
-	for (auto& circle : circles)
+	for (const auto& circle : circles)
 	{
 		std::cout << "Circle in point " << circle->getCenter() << ", R: " << circle->getRadius() << '\n';
 	}
@@ -106,19 +106,19 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-std::string getType(Geometry::Curve* curve)
+std::string getType(const std::shared_ptr<Geometry::Curve>& curve)
 {
-	if (dynamic_cast<Geometry::Circle*>(curve))
+	if (std::dynamic_pointer_cast<Geometry::Circle>(curve))
 	{
 		return "Circle";
 	}
 
-	if (dynamic_cast<Geometry::Ellipse*>(curve))
+	if (std::dynamic_pointer_cast<Geometry::Ellipse>(curve))
 	{
 		return "Ellipse";
 	}
 
-	if (dynamic_cast<Geometry::Helix*>(curve))
+	if (std::dynamic_pointer_cast<Geometry::Helix>(curve))
 	{
 		return "Helix";
 	}
