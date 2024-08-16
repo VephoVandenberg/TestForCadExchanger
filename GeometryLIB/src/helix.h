@@ -4,7 +4,7 @@
 
 namespace Geometry
 {
-	class __declspec(dllexport) Helix : public Curve
+	class __declspec(dllexport) Helix final : public Curve
 	{
 	public:
 		Helix(const Vec3& vec, const double radius, const double step);

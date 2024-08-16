@@ -18,7 +18,7 @@ namespace Geometry
 		double m_yRadius;
 	};
 
-	class __declspec(dllexport) Circle : public Ellipse
+	class __declspec(dllexport) Circle final : public Ellipse
 	{
 	public:
 		Circle(const Vec3& center, const double radius);
